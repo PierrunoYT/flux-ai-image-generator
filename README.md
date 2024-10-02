@@ -1,6 +1,6 @@
 # FAL AI Flux Image Generator
 
-This project utilizes the FLUX.1 [dev] model from fal.ai to generate images based on text prompts.
+This project is a Gradio app that utilizes the FLUX.1 [dev] model from fal.ai to generate images based on text prompts. It provides an interactive web interface for easy image generation.
 
 ## Prerequisites
 
@@ -31,7 +31,7 @@ This project utilizes the FLUX.1 [dev] model from fal.ai to generate images base
 
 3. Install the required packages:
    ```
-   pip install fal-client
+   pip install fal-client gradio
    ```
 
 4. Set up your fal.ai API key:
@@ -63,21 +63,28 @@ export FAL_KEY=your-api-key-here
 
 ## Usage
 
-The main script for image generation is `flux_image_generator.py`. You can run it from the command line with various parameters to customize the image generation process.
+The main script for the Gradio app is `flux_image_generator.py`. You can run it from the command line to start the web interface.
 
-Example usage:
+To launch the Gradio app:
 
 ```
-python flux_image_generator.py --prompt "A serene landscape with mountains and a lake" --size 1024x1024 --num_images 2
+python flux_image_generator.py
 ```
 
-Available parameters:
-- `--prompt`: The text description of the image you want to generate (required)
-- `--size`: Image size in the format widthxheight (default: 1024x1024)
-- `--num_inference_steps`: Number of denoising steps (default: 50)
-- `--guidance_scale`: How closely the model should follow the prompt (default: 7.5)
-- `--num_images`: Number of images to generate (default: 1)
-- `--enable_safety_checker`: Whether to enable the safety filter (default: True)
+Once the app is running, you'll see a URL in the console. Open this URL in your web browser to access the Gradio interface.
+
+In the Gradio interface, you can:
+
+1. Enter a text prompt describing the image you want to generate.
+2. Adjust various parameters:
+   - Image Size: Choose from predefined aspect ratios
+   - Number of Inference Steps: Higher values may produce better quality but take longer
+   - Guidance Scale: How closely the model should follow the prompt
+   - Number of Images: Generate up to 4 images at once
+   - Enable Safety Checker: Option to filter out potentially unsafe content
+3. Click "Submit" to generate the image(s).
+
+The generated images will be displayed in the interface, and you can download them directly from there.
 
 ## Troubleshooting
 
@@ -86,10 +93,11 @@ Available parameters:
 - For Windows users: 
   - If you're using PowerShell and the `set` command doesn't work, try using `$env:FAL_KEY = "your-api-key-here"` instead.
   - If you've used `setx` to set the environment variable, remember to restart your command prompt for the changes to take effect.
+- If the Gradio interface doesn't open automatically, try manually copying and pasting the URL from the console into your web browser.
 
 ## Contributing
 
-Feel free to fork this repository and submit pull requests with any improvements or additional features you'd like to add to the image generator or the project in general.
+Feel free to fork this repository and submit pull requests with any improvements or additional features you'd like to add to the Gradio app or the project in general.
 
 ## License
 
