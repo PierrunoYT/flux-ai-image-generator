@@ -1,4 +1,4 @@
-# FAL AI Flux Image Generator
+# FAL AI Flux Dev Image Generator
 
 This project is a Gradio app that utilizes the FLUX.1 [dev] model from fal.ai to generate images based on text prompts. It provides an interactive web interface for easy image generation.
 
@@ -11,8 +11,8 @@ This project is a Gradio app that utilizes the FLUX.1 [dev] model from fal.ai to
 
 1. Clone this repository:
    ```
-   git clone https://github.com/PierrunoYT/flux-ai-image-generator.git
-   cd flux-ai-image-generator
+   git clone https://github.com/PierrunoYT/fal-flux-dev-image-generator.git
+   cd fal-flux-dev-image-generator
    ```
 
 2. (Recommended) Create and activate a virtual environment:
