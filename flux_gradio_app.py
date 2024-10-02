@@ -71,11 +71,12 @@ iface = gr.Interface(
 
 if __name__ == "__main__":
     try:
-        # Use a specific temporary directory
+        # Set the GRADIO_TEMP_DIR environment variable
         temp_dir = os.path.join(tempfile.gettempdir(), 'gradio_temp')
         os.makedirs(temp_dir, exist_ok=True)
+        os.environ['GRADIO_TEMP_DIR'] = temp_dir
         print(f"Using temporary directory: {temp_dir}")
         
-        iface.launch(share=True, temp_dir=temp_dir)
+        iface.launch(share=True)
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
