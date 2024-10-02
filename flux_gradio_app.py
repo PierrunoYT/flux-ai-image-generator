@@ -1,7 +1,6 @@
 import gradio as gr
 import fal_client
 import os
-import tempfile
 
 # Ensure you have set the FAL_KEY environment variable
 if "FAL_KEY" not in os.environ:
@@ -64,20 +63,13 @@ iface = gr.Interface(
         gr.Number(label="Seed (optional)", precision=0),
         gr.Checkbox(label="Sync Mode", value=False)
     ],
-    outputs=[gr.Image(type="filepath") for _ in range(4)],
+    outputs=[gr.Image(type="url") for _ in range(4)],  # Changed to 'url' type
     title="FLUX.1 [dev] Image Generator",
     description="Generate images using the FLUX.1 [dev] model from fal.ai"
 )
 
 if __name__ == "__main__":
     try:
-        # Create a temporary directory that we know we have permission to access
-        with tempfile.TemporaryDirectory() as temp_dir:
-            print(f"Using temporary directory: {temp_dir}")
-            iface.launch(share=True, temp_dir=temp_dir)
-    except PermissionError as pe:
-        print(f"PermissionError: {pe}")
-        print("Please ensure you have the necessary permissions to run this script.")
-        print("You may need to run it with administrator privileges.")
+        iface.launch(share=True)
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
