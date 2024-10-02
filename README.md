@@ -27,20 +27,42 @@ This project includes a Gradio app that allows you to generate images using the 
 3. Set up your fal.ai API key:
    - Sign up for an account at [fal.ai](https://fal.ai)
    - Obtain your API key from the dashboard
-   - Set the API key as an environment variable:
-     ```
-     export FAL_KEY="your-api-key-here"
-     ```
 
 ### Running the App
 
-To run the Gradio app, execute the following command in your terminal:
+#### Windows
 
-```
-python flux_gradio_app.py
-```
+1. Open Command Prompt or PowerShell
+2. Navigate to the project directory:
+   ```
+   cd path\to\FAL-AI-FLux
+   ```
+3. Set the API key as an environment variable:
+   ```
+   set FAL_KEY=your-api-key-here
+   ```
+4. Run the Gradio app:
+   ```
+   python flux_gradio_app.py
+   ```
 
-The app will start, and you'll see a URL where you can access the interface in your web browser.
+#### macOS and Linux
+
+1. Open Terminal
+2. Navigate to the project directory:
+   ```
+   cd path/to/FAL-AI-FLux
+   ```
+3. Set the API key as an environment variable:
+   ```
+   export FAL_KEY=your-api-key-here
+   ```
+4. Run the Gradio app:
+   ```
+   python3 flux_gradio_app.py
+   ```
+
+After running the app, you'll see a URL where you can access the interface in your web browser.
 
 ### Using the App
 
@@ -52,6 +74,12 @@ The app will start, and you'll see a URL where you can access the interface in y
    - Number of Images: Generate up to 4 images at once
    - Enable Safety Checker: Option to filter out potentially unsafe content
 3. Click "Submit" to generate the image(s).
+
+## Troubleshooting
+
+- If you encounter a "ModuleNotFoundError", make sure you've installed the required packages using pip.
+- If you get an authentication error, check that you've correctly set the FAL_KEY environment variable with your fal.ai API key.
+- For Windows users: If you're using PowerShell and the `set` command doesn't work, try using `$env:FAL_KEY = "your-api-key-here"` instead.
 
 ## Contributing
 
