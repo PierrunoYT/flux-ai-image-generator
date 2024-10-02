@@ -89,7 +89,7 @@ iface = gr.Interface(
         gr.Checkbox(label="Sync Mode", value=False)
     ],
     outputs=[gr.Image(type="filepath") for _ in range(4)],
-    title="FLUX.1 [dev] Image Generator",
+    title="FAL AI Flux Dev Image Generator",
     description="Generate images using the FLUX.1 [dev] model from fal.ai"
 )
 
