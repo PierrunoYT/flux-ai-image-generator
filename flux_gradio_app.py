@@ -1,6 +1,7 @@
 import gradio as gr
 import fal_client
 import os
+import tempfile
 
 # Ensure you have set the FAL_KEY environment variable
 if "FAL_KEY" not in os.environ:
@@ -70,6 +71,11 @@ iface = gr.Interface(
 
 if __name__ == "__main__":
     try:
-        iface.launch(share=True)
+        # Use a specific temporary directory
+        temp_dir = os.path.join(tempfile.gettempdir(), 'gradio_temp')
+        os.makedirs(temp_dir, exist_ok=True)
+        print(f"Using temporary directory: {temp_dir}")
+        
+        iface.launch(share=True, temp_dir=temp_dir)
     except Exception as e:
         print(f"An unexpected error occurred: {e}")
