@@ -21,7 +21,7 @@ def generate_image(prompt, image_size, num_inference_steps, guidance_scale, num_
         sync_mode (bool, optional): If set to true, the function will wait for the image to be generated and uploaded before returning.
 
     Returns:
-        list: A list of up to 4 image URLs or None values.
+        tuple: A tuple of up to 4 image URLs or empty strings.
     """
     try:
         handler = fal_client.submit(
@@ -41,14 +41,14 @@ def generate_image(prompt, image_size, num_inference_steps, guidance_scale, num_
         result = handler.get()
         image_urls = [image["url"] for image in result["images"]]
         
-        # Pad the list with None values if less than 4 images are generated
+        # Pad the list with empty strings if less than 4 images are generated
         while len(image_urls) < 4:
-            image_urls.append(None)
+            image_urls.append("")
         
-        return image_urls[:4]  # Return exactly 4 items (URLs or None)
+        return tuple(image_urls[:4])  # Return exactly 4 items (URLs or empty strings) as a tuple
     except Exception as e:
         print(f"Error generating image: {str(e)}")
-        return [None, None, None, None]  # Return 4 None values in case of an error
+        return ("", "", "", "")  # Return 4 empty strings in case of an error
 
 # Define the Gradio interface
 iface = gr.Interface(
@@ -63,7 +63,7 @@ iface = gr.Interface(
         gr.Number(label="Seed (optional)", precision=0),
         gr.Checkbox(label="Sync Mode", value=False)
     ],
-    outputs=[gr.Image(type="url") for _ in range(4)],
+    outputs=[gr.Image(type="filepath") for _ in range(4)],
     title="FLUX.1 [dev] Image Generator",
     description="Generate images using the FLUX.1 [dev] model from fal.ai"
 )
