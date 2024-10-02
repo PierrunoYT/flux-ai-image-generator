@@ -1,22 +1,18 @@
-# FAL AI Flux
+# FAL AI Flux Image Generator
 
-This project is dedicated to exploring and implementing AI flux concepts using the FLUX.1 [dev] model from fal.ai.
+This project utilizes the FLUX.1 [dev] model from fal.ai to generate images based on text prompts.
 
-## FLUX.1 [dev] Image Generator
-
-This project includes a Gradio app that allows you to generate images using the FLUX.1 [dev] model from fal.ai.
-
-### Prerequisites
+## Prerequisites
 
 - Python 3.7+
 - pip (Python package manager)
 
-### Installation
+## Installation
 
 1. Clone this repository:
    ```
-   git clone https://github.com/your-username/FAL-AI-FLux.git
-   cd FAL-AI-FLux
+   git clone https://github.com/PierrunoYT/flux-ai-image-generator.git
+   cd flux-ai-image-generator
    ```
 
 2. (Recommended) Create and activate a virtual environment:
@@ -35,14 +31,14 @@ This project includes a Gradio app that allows you to generate images using the 
 
 3. Install the required packages:
    ```
-   pip install gradio fal-client
+   pip install fal-client
    ```
 
 4. Set up your fal.ai API key:
    - Sign up for an account at [fal.ai](https://fal.ai)
    - Obtain your API key from the dashboard
 
-### Setting Environment Variables
+## Setting Environment Variables
 
 #### Windows
 
@@ -65,52 +61,23 @@ You can use either `set` or `setx` to set environment variables:
 export FAL_KEY=your-api-key-here
 ```
 
-### Running the App
+## Usage
 
-#### Windows
+The main script for image generation is `flux_image_generator.py`. You can run it from the command line with various parameters to customize the image generation process.
 
-1. Open Command Prompt or PowerShell
-2. Navigate to the project directory:
-   ```
-   cd path\to\FAL-AI-FLux
-   ```
-3. Activate the virtual environment (if you created one):
-   ```
-   venv\Scripts\activate
-   ```
-4. Run the Gradio app:
-   ```
-   python flux_gradio_app.py
-   ```
+Example usage:
 
-#### macOS and Linux
+```
+python flux_image_generator.py --prompt "A serene landscape with mountains and a lake" --size 1024x1024 --num_images 2
+```
 
-1. Open Terminal
-2. Navigate to the project directory:
-   ```
-   cd path/to/FAL-AI-FLux
-   ```
-3. Activate the virtual environment (if you created one):
-   ```
-   source venv/bin/activate
-   ```
-4. Run the Gradio app:
-   ```
-   python3 flux_gradio_app.py
-   ```
-
-After running the app, you'll see a URL where you can access the interface in your web browser.
-
-### Using the App
-
-1. Enter a text prompt describing the image you want to generate.
-2. Adjust the parameters as needed:
-   - Image Size: Choose from predefined aspect ratios
-   - Number of Inference Steps: Higher values may produce better quality but take longer
-   - Guidance Scale: How closely the model should follow the prompt
-   - Number of Images: Generate up to 4 images at once
-   - Enable Safety Checker: Option to filter out potentially unsafe content
-3. Click "Submit" to generate the image(s).
+Available parameters:
+- `--prompt`: The text description of the image you want to generate (required)
+- `--size`: Image size in the format widthxheight (default: 1024x1024)
+- `--num_inference_steps`: Number of denoising steps (default: 50)
+- `--guidance_scale`: How closely the model should follow the prompt (default: 7.5)
+- `--num_images`: Number of images to generate (default: 1)
+- `--enable_safety_checker`: Whether to enable the safety filter (default: True)
 
 ## Troubleshooting
 
@@ -122,7 +89,7 @@ After running the app, you'll see a URL where you can access the interface in yo
 
 ## Contributing
 
-Feel free to fork this repository and submit pull requests with any improvements or additional features you'd like to add to the Gradio app or the project in general.
+Feel free to fork this repository and submit pull requests with any improvements or additional features you'd like to add to the image generator or the project in general.
 
 ## License
 
