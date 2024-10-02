@@ -6,7 +6,23 @@ import os
 if "FAL_KEY" not in os.environ:
     raise ValueError("Please set the FAL_KEY environment variable")
 
-def generate_image(prompt, image_size, num_inference_steps, guidance_scale, num_images, enable_safety_checker):
+def generate_image(prompt, image_size, num_inference_steps, guidance_scale, num_images, enable_safety_checker, seed=None, sync_mode=False):
+    """
+    Generate images using the FLUX.1 [dev] model from fal.ai.
+
+    Args:
+        prompt (str): The prompt to generate an image from.
+        image_size (str): The size of the generated image.
+        num_inference_steps (int): The number of inference steps to perform.
+        guidance_scale (float): The CFG (Classifier Free Guidance) scale.
+        num_images (int): The number of images to generate.
+        enable_safety_checker (bool): If set to true, the safety checker will be enabled.
+        seed (int, optional): The seed for image generation. If None, a random seed will be used.
+        sync_mode (bool, optional): If set to true, the function will wait for the image to be generated and uploaded before returning.
+
+    Returns:
+        list: A list of up to 4 image URLs or None values.
+    """
     try:
         handler = fal_client.submit(
             "fal-ai/flux/dev",
@@ -16,12 +32,14 @@ def generate_image(prompt, image_size, num_inference_steps, guidance_scale, num_
                 "num_inference_steps": num_inference_steps,
                 "guidance_scale": guidance_scale,
                 "num_images": num_images,
-                "enable_safety_checker": enable_safety_checker
+                "enable_safety_checker": enable_safety_checker,
+                "seed": seed,
+                "sync_mode": sync_mode
             },
         )
         
         result = handler.get()
-        image_urls = [result["images"][i]["url"] for i in range(num_images)]
+        image_urls = [image["url"] for image in result["images"]]
         
         # Pad the list with None values if less than 4 images are generated
         while len(image_urls) < 4:
@@ -29,7 +47,7 @@ def generate_image(prompt, image_size, num_inference_steps, guidance_scale, num_
         
         return image_urls[:4]  # Return exactly 4 items (URLs or None)
     except Exception as e:
-        print(f"Error: {str(e)}")
+        print(f"Error generating image: {str(e)}")
         return [None, None, None, None]  # Return 4 None values in case of an error
 
 # Define the Gradio interface
@@ -41,9 +59,11 @@ iface = gr.Interface(
         gr.Slider(1, 50, value=28, step=1, label="Number of Inference Steps"),
         gr.Slider(1, 20, value=3.5, step=0.1, label="Guidance Scale"),
         gr.Slider(1, 4, value=1, step=1, label="Number of Images"),
-        gr.Checkbox(label="Enable Safety Checker", value=True)
+        gr.Checkbox(label="Enable Safety Checker", value=True),
+        gr.Number(label="Seed (optional)", precision=0),
+        gr.Checkbox(label="Sync Mode", value=False)
     ],
-    outputs=[gr.Image(type="url") for _ in range(4)],  # Changed to type="url"
+    outputs=[gr.Image(type="url") for _ in range(4)],
     title="FLUX.1 [dev] Image Generator",
     description="Generate images using the FLUX.1 [dev] model from fal.ai"
 )
