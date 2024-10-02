@@ -63,7 +63,7 @@ iface = gr.Interface(
         gr.Number(label="Seed (optional)", precision=0),
         gr.Checkbox(label="Sync Mode", value=False)
     ],
-    outputs=[gr.Image(type="url") for _ in range(4)],  # Changed to 'url' type
+    outputs=[gr.Image(type="filepath") for _ in range(4)],
     title="FLUX.1 [dev] Image Generator",
     description="Generate images using the FLUX.1 [dev] model from fal.ai"
 )
